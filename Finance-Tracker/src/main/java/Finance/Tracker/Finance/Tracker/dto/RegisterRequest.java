@@ -1,7 +1,5 @@
 package Finance.Tracker.Finance.Tracker.dto;
 
-
-
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
@@ -24,11 +22,8 @@ public class RegisterRequest {
 
     @NotBlank(message = "Last name is required")
     private String lastName;
-
-    // Constructors
     public RegisterRequest() {}
 
-    // Getters and Setters
     public String getUsername() { return username; }
     public void setUsername(String username) { this.username = username; }
 
