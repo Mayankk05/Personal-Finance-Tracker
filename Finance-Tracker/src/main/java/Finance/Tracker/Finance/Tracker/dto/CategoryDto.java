@@ -15,7 +15,6 @@ public class CategoryDto {
     @NotNull(message = "Category type is required")
     private TransactionType type;
 
-    // Constructors
     public CategoryDto() {}
 
     public CategoryDto(Long id, String name, TransactionType type) {
