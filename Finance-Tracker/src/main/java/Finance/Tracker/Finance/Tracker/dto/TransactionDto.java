@@ -26,11 +26,8 @@ public class TransactionDto {
 
     @NotNull(message = "Transaction date is required")
     private LocalDate transactionDate;
-
-    // Constructors
     public TransactionDto() {}
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
