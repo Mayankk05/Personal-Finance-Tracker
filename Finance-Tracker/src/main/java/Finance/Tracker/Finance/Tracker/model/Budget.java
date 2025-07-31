@@ -1,7 +1,5 @@
 package Finance.Tracker.Finance.Tracker.model;
 
-
-
 import jakarta.persistence.*;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -36,7 +34,6 @@ public class Budget {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Constructors
     public Budget() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
@@ -51,7 +48,6 @@ public class Budget {
         this.year = year;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
