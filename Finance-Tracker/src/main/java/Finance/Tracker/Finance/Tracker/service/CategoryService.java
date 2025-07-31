@@ -36,16 +36,11 @@ public class CategoryService {
     }
 
     public CategoryDto createCategory(Long userId, CategoryDto categoryDto) {
-        // Validate user exists
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Check if category name already exists for this user
         if (categoryRepository.existsByNameAndUserId(categoryDto.getName(), userId)) {
             throw new RuntimeException("Category with this name already exists");
         }
-
-        // Create category
         Category category = new Category();
         category.setName(categoryDto.getName());
         category.setType(categoryDto.getType());
@@ -59,18 +54,15 @@ public class CategoryService {
         Category category = categoryRepository.findById(categoryId)
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
-        // Validate category belongs to user
         if (!category.getUser().getId().equals(userId)) {
             throw new RuntimeException("Category does not belong to user");
         }
 
-        // Check if new name conflicts with existing categories
         if (!category.getName().equals(categoryDto.getName()) &&
                 categoryRepository.existsByNameAndUserId(categoryDto.getName(), userId)) {
             throw new RuntimeException("Category with this name already exists");
         }
 
-        // Update fields
         if (categoryDto.getName() != null) {
             category.setName(categoryDto.getName());
         }
@@ -107,7 +99,6 @@ public class CategoryService {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Default expense categories
         String[] expenseCategories = {"Food", "Transport", "Entertainment", "Shopping", "Bills", "Healthcare"};
         for (String categoryName : expenseCategories) {
             if (!categoryRepository.existsByNameAndUserId(categoryName, userId)) {
@@ -115,8 +106,6 @@ public class CategoryService {
                 categoryRepository.save(category);
             }
         }
-
-        // Default income categories
         String[] incomeCategories = {"Salary", "Freelance", "Investment", "Other Income"};
         for (String categoryName : incomeCategories) {
             if (!categoryRepository.existsByNameAndUserId(categoryName, userId)) {
