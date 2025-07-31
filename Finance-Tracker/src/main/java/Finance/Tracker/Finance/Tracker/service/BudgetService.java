@@ -42,11 +42,10 @@ public class BudgetService {
     }
 
     public BudgetDto createOrUpdateBudget(Long userId, BudgetDto budgetDto) {
-        // Validate user exists
+ 
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
 
-        // Validate category exists and belongs to user
         Category category = categoryRepository.findById(budgetDto.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
@@ -54,17 +53,14 @@ public class BudgetService {
             throw new RuntimeException("Category does not belong to user");
         }
 
-        // Check if budget already exists for this category, month, and year
         Optional<Budget> existingBudget = budgetRepository.findByUserIdAndCategoryIdAndMonthAndYear(
                 userId, budgetDto.getCategoryId(), budgetDto.getMonth(), budgetDto.getYear());
 
         Budget budget;
         if (existingBudget.isPresent()) {
-            // Update existing budget
             budget = existingBudget.get();
             budget.setAmount(budgetDto.getAmount());
         } else {
-            // Create new budget
             budget = new Budget();
             budget.setUser(user);
             budget.setCategory(category);
