@@ -31,7 +31,7 @@ public class AuthService implements UserDetailsService {
     private PasswordEncoder passwordEncoder;
 
     @Autowired
-    @Lazy  // This breaks the circular dependency
+    @Lazy  
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -40,21 +40,18 @@ public class AuthService implements UserDetailsService {
     public Map<String, Object> registerUser(RegisterRequest registerRequest) {
         Map<String, Object> response = new HashMap<>();
 
-        // Check if username already exists
         if (userRepository.existsByUsername(registerRequest.getUsername())) {
             response.put("success", false);
             response.put("message", "Username is already taken!");
             return response;
         }
 
-        // Check if email already exists
         if (userRepository.existsByEmail(registerRequest.getEmail())) {
             response.put("success", false);
             response.put("message", "Email is already in use!");
             return response;
         }
 
-        // Create new user
         User user = new User(
                 registerRequest.getUsername(),
                 registerRequest.getEmail(),
