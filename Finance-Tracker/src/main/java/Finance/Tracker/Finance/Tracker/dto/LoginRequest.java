@@ -10,7 +10,6 @@ public class LoginRequest {
     @NotBlank(message = "Password is required")
     private String password;
 
-    // Constructors
     public LoginRequest() {}
 
     public LoginRequest(String username, String password) {
