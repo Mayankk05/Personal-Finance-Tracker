@@ -27,7 +27,7 @@ public class AuthController {
         Map<String, Object> response = authService.registerUser(registerRequest);
 
         if ((Boolean) response.get("success")) {
-            // Create default categories for new user
+        
             Long userId = (Long) response.get("userId");
             categoryService.createDefaultCategories(userId);
             return ResponseEntity.ok(response);
