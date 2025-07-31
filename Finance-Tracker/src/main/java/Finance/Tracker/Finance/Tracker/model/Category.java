@@ -29,7 +29,6 @@ public class Category {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    // Constructors
     public Category() {
         this.createdAt = LocalDateTime.now();
         this.updatedAt = LocalDateTime.now();
@@ -42,7 +41,6 @@ public class Category {
         this.user = user;
     }
 
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
