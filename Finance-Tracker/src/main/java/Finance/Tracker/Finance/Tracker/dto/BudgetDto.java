@@ -28,11 +28,7 @@ public class BudgetDto {
     @NotNull(message = "Year is required")
     @Min(value = 2020, message = "Year must be 2020 or later")
     private Integer year;
-
-    // Constructors
     public BudgetDto() {}
-
-    // Getters and Setters
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
 
