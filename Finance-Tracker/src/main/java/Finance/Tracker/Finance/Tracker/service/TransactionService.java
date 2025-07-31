@@ -44,19 +44,14 @@ public class TransactionService {
     }
 
     public TransactionDto createTransaction(Long userId, TransactionDto transactionDto) {
-        // Validate user exists
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new RuntimeException("User not found"));
-
-        // Validate category exists and belongs to user
         Category category = categoryRepository.findById(transactionDto.getCategoryId())
                 .orElseThrow(() -> new RuntimeException("Category not found"));
 
         if (!category.getUser().getId().equals(userId)) {
             throw new RuntimeException("Category does not belong to user");
         }
-
-        // Create transaction
         Transaction transaction = new Transaction();
         transaction.setUser(user);
         transaction.setCategory(category);
@@ -72,13 +67,10 @@ public class TransactionService {
     public TransactionDto updateTransaction(Long userId, Long transactionId, TransactionDto transactionDto) {
         Transaction transaction = transactionRepository.findById(transactionId)
                 .orElseThrow(() -> new RuntimeException("Transaction not found"));
-
-        // Validate transaction belongs to user
         if (!transaction.getUser().getId().equals(userId)) {
             throw new RuntimeException("Transaction does not belong to user");
         }
 
-        // Update fields
         if (transactionDto.getCategoryId() != null) {
             Category category = categoryRepository.findById(transactionDto.getCategoryId())
                     .orElseThrow(() -> new RuntimeException("Category not found"));
